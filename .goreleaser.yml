@@ -1,17 +1,19 @@
 project_name: kubeadm-bootstrap
+
 builds:
-- goos:
-  - linux
-  - darwin
-  goarch:
-  - amd64
-  main: .
-  ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
-  binary: kubeadm-bootstrap
+  -
+    goos:
+    - linux
+    - darwin
+    goarch:
+    - amd64
+    main: .
+    ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+    binary: kubeadm-bootstrap
+
 archive:
   format: tar.gz
-  name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm
-    }}v{{ .Arm }}{{ end }}'
+  name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
   files:
   - licence*
   - LICENCE*
@@ -21,7 +23,8 @@ archive:
   - README*
   - changelog*
   - CHANGELOG*
-fpm:
+
+nfpm:
   vendor: Apptio TechOps
   homepage: "https://github.com/apptio/kubeadm-bootstrap"
   maintainer: Lee Briggs <lbriggs@apptio.com>
@@ -30,6 +33,16 @@ fpm:
   formats:
     - rpm
   bindir: /usr/local/bin
+
 snapshot:
   name_template: SNAPSHOT-{{ .Commit }}
+
 dist: dist
+
+dockers:
+  - image: apptio/kubeadm-bootstrap
+    latest: true
+    tag_template: '{{ .Version }}-{{ .Env.GOVERSION }}'
+    extra_files:
+      - kubeadm-bootstrap.yaml
+      - kubeadm.json

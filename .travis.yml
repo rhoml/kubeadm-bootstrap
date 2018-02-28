@@ -1,0 +1,26 @@
+dist: centos7
+
+language: go
+
+go:
+  - "1.10"
+
+branches:
+  only:
+    - master  
+
+script:
+  - make build
+
+deploy:
+  provider: releases
+  api_key:
+  file:
+    -
+    -
+  skip_cleanup:
+  on:
+    tags: true
+
+notifications:
+  email: false
