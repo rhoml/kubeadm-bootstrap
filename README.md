@@ -47,6 +47,12 @@ Use "kubeadm-bootstrap [command] --help" for more information about a command.
 
 Coming Soon
 
+## Running on docker
+
+```shell
+docker run --rm -it -v kubeadm-bootstrap.yaml:/etc/kubeadm/.kubeadm-bootstrap.yaml -v kubeadm.json:/etc/kubernetes/kubeadm.json apptio/kubeadm-bootstrap:too
+```
+
 ## Assumptions
 
 There are quite a lot of assumptions when using kubeadm-bootstrap, so please use it with caution. Many of these assumptions will be fixed as the tool is developed - pull requests are welcome!
